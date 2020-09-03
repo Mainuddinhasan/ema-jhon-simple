@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../../utilities/databaseManager';
 import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
-
+import happyImage from '../../images/giphy.gif'
 const Review = () => {
-    
-const [cart,setCart]= useState([])
+    const [cart,setCart]= useState([])
+    // const [orderPlaced,setOrderPlaced]= useState()
+    const [orderPlaced,setOrderPlaced]= useState(false)
+
+const handlePlaceOrder = () =>{
+    // console.log ("order Placed")
+    setCart([]);
+    setOrderPlaced(true);
+    processOrder();//database method
+}
+
 const removeProduct = (productKey) => {
     console.log('remove clicked',productKey)
 const newCart =cart.filter(pd => pd.key !== productKey) 
@@ -29,6 +38,15 @@ removeFromDatabaseCart (productKey)
         
     },[])
 
+    const imageStyle = {
+        width: "100%",
+        height: "400px"
+    }
+    let donePlaceOrder;
+    if(orderPlaced) {
+      donePlaceOrder = <img style={ imageStyle}
+          src={happyImage} alt=""/>
+    }
 
     return (
     <div className="twin-container">
@@ -40,10 +58,17 @@ removeFromDatabaseCart (productKey)
             removeProduct ={removeProduct}
             key={pd.key}></ReviewItem>) 
         }
-        
+        {
+            // orderPlaced && condition deoar chesta
+            donePlaceOrder
+        }
         </div>
         <div className="cart-container">
-            <Cart cart={cart}></Cart>
+            <Cart cart={cart}>
+                <button onClick={handlePlaceOrder} className="main-button">
+                    Place Order
+                </button>
+            </Cart>
 
         </div>
        

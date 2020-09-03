@@ -5,7 +5,7 @@ import './Shop.css'
 import Product from '../Product/Product';
 import Cart from '../Cart/Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
-
+import { Link } from 'react-router-dom';
 const Shop = () => {
   const first10 = fakeData.slice(0,10);
   const [products,setProducts] = useState(first10);
@@ -33,7 +33,8 @@ console.log(previousCart)
     let count = 1;
     let newCart;
     if(sameProduct){
-      const count = sameProduct.quantity + 1;
+      // const count = sameProduct.quantity + 1; const dile quantity barbena
+      count = sameProduct.quantity + 1;
       sameProduct.quantity = count;
       const others = cart.filter(pd => pd.key !== toBeAddedKey)
       newCart = [...others, sameProduct]
@@ -62,7 +63,11 @@ return (
     
     </div>
     <div className="cart-container">
-       <Cart cart= {cart}></Cart>
+       <Cart cart= {cart}>
+       <Link to="/review">
+        <button className ="main-button">Review</button>
+        </Link>
+       </Cart>
     </div>
     
 </div>
