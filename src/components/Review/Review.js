@@ -4,16 +4,18 @@ import fakeData from '../../fakeData';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif'
+import { useHistory } from 'react-router-dom';
+
+
 const Review = () => {
     const [cart,setCart]= useState([])
-    // const [orderPlaced,setOrderPlaced]= useState()
+        // const [orderPlaced,setOrderPlaced]= useState()
     const [orderPlaced,setOrderPlaced]= useState(false)
+    const history =useHistory()
 
-const handlePlaceOrder = () =>{
-    // console.log ("order Placed")
-    setCart([]);
-    setOrderPlaced(true);
-    processOrder();//database method
+const handleProceedCheckout = () =>{
+    history.push('/shipment')
+  
 }
 
 const removeProduct = (productKey) => {
@@ -65,8 +67,8 @@ removeFromDatabaseCart (productKey)
         </div>
         <div className="cart-container">
             <Cart cart={cart}>
-                <button onClick={handlePlaceOrder} className="main-button">
-                    Place Order
+                <button onClick={handleProceedCheckout} className="main-button">
+                    Proceed Checkout
                 </button>
             </Cart>
 
@@ -79,6 +81,13 @@ removeFromDatabaseCart (productKey)
 
 export default Review;
 
+// const handlePlaceOrder = () =>{
+ // console.log ("order Placed")
+//   setCart([]);//cart empty kora
+//   setOrderPlaced(true);//state update
+//   processOrder();//database method 
+// }
+  
 
 // 37
 // import React, { useEffect, useState } from 'react';
